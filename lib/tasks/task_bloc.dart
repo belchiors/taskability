@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'package:taskability/models/task.dart';
-import 'package:taskability/models/task_repo.dart';
+import 'task_model.dart';
 
-class HomeBloc {
+import 'task_repo.dart';
 
-  HomeBloc() {
+class TaskBloc {
+
+  TaskBloc() {
     getAll();
   }
 
@@ -18,9 +19,12 @@ class HomeBloc {
     _streamController.sink.add(tasks);
   }
 
-  void addTask(Task task) {
-    _repo.addTask(task);
-    getAll();
+  void createTask(String text) {
+    if (text.isNotEmpty) {
+      final newTask = Task(text);
+      _repo.addTask(newTask);
+      getAll();
+    }
   }
   
   void deleteTask() {
